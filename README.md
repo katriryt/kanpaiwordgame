@@ -35,7 +35,7 @@ Below is the first draft of the user interface
 
 ## Release and testing
 
-The application will be available for testing in Heroku. 
+The application is available for testing in [Heroku](https://kanpaiwordgame.herokuapp.com/).
 
 
 Updated 1.8.2021
