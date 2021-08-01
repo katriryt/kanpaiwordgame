@@ -80,7 +80,7 @@ def signup():
         else:
             return render_template("error.html", message="Registration was not successful, please try again")
 
-@app.route("/signin", methods=["GET", "POST"])
+@app.route("/signin", methods=["get", "post"])
 def signin():
     if request.method=="GET":
         return render_template("signin.html")
