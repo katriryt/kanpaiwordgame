@@ -39,7 +39,7 @@ def play_game():
     series_cards=series_cards
     )
 
-@app.route("/signup", methods=["GET", "POST"])
+@app.route("/signup", methods=["get", "post"])
 def signup():
     if request.method=="GET":
         return render_template("signup.html")
