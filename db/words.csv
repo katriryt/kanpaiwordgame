@@ -1,0 +1,101 @@
+﻿id,class,kanji,hiragana,roomaji,english
+1,Greetings,,おはようございます,Ohayou gozaimasu,Good morning
+2,Greetings,,こんにちは,Konnichiwa,Hello/ good afternoon
+3,Greetings,,こんばんは,Konbanwa,Good evening
+4,Greetings,,おやすみなさい,Oyasuminasai,Goodnight
+5,Greetings,,ありがとうございます,Arigatou gozaimasu,Thank you
+6,Greetings,,すみません,Sumimasen,Excuse me/ sorry
+7,Greetings,,ごめんなさい,Gomennasai,Sorry
+8,Greetings,,はい,Hai,Yes
+9,Greetings,,いいえ,Iie,No
+10,Family,私,わたし,Watashi,I/me
+11,Family,貴方,あなた,Anata,You
+12,Family,お母さん,おかあさん,Okaasan,Mother
+13,Family,お父さん,おとうさん,Otousan,Father
+14,Family,お爺さん,おじいさん,Ojiisan,Grandfather
+15,Family,お婆さん,おばあさん,Obaasan,Grandmother
+16,Family,おじさん,おじさん,Ojisan,Uncle
+17,Family,おばさん,おばさん,Obasan,Aunt
+18,Family,お兄さん,おにいさん,Oniisan,Older brother
+19,Family,お姉さん,おねえさん,Oneesan,Older sister
+20,Family,弟,おとうと,Otouto,Younger brother
+21,Family,妹,いもうと,Imouto,Younger sister
+22,Numbers,一,いち,Ichi,One
+23,Numbers,二,に,Ni,Two
+24,Numbers,三,さん,San,Three
+25,Numbers,四,し/よん,Shi/yon,Four
+26,Numbers,五,ご,Go,Five
+27,Numbers,六,ろく,Roku,Six
+28,Numbers,七,しち/なな,Shichi/nana,Seven
+29,Numbers,八,はち,Hachi,Eight
+30,Numbers,九,きゅう,Kyuu,Nine
+31,Numbers,十,じゅう,Juu,Ten
+32,Months,一月,いちがつ,Ichigatsu,January
+33,Months,二月,にがつ,Nigatsu,February
+34,Months,三月,さんがつ,Sangatsu,March
+35,Months,四月,しがつ,Shigatsu,April
+36,Months,五月,ごがつ,Gogatsu,May
+37,Months,六月,ろくがつ,Rokugatsu,June
+38,Months,七月,しちがつ,Shichigatsu,July
+39,Months,八月,はちがつ,Hachigatsu,August
+40,Months,九月,くがつ,Kugatsu,September
+41,Months,十月,じゅうがつ,Juugatsu,October
+42,Months,十一月,じゅういちがつ,Juuichigatsu,November
+43,Months,十二月,じゅうにがつ,Juunigatsu,December
+44,Weekdays,月曜日,げつようび , Getsuyoubi,Monday
+45,Weekdays,火曜日,かようび,Kayoubi,Tuesday
+46,Weekdays,水曜日,すいようび ,Suiyoubi,Wednesday
+47,Weekdays,木曜日,もくようび,Mokuyoubi,Thursday
+48,Weekdays,金曜日,きんようび,Kinyoubi,Friday
+49,Weekdays,土曜日,どようび,Doyoubi,Saturday
+50,Weekdays,日曜日,にちようび,Nichiyoubi,Sunday
+51,Times of the Day,昨日,きのう,Kinou,Yesterday
+52,Times of the Day,今日,きょう,Kyou,Today
+53,Times of the Day,明日,あした,Ashita,Tomorrow
+54,Times of the Day,朝,あさ,Asa,Morning
+55,Times of the Day,昼,ひる,Hiru,Noon
+56,Times of the Day,夕方,ゆうがた,Yuugata,Evening
+57,Times of the Day,夜,よる,Yoru,Night
+58,Adjectives,楽しい,たのしい,Tanoshii,Happy
+59,Adjectives,悲しい,かなしい,Kanashii,Sad
+60,Adjectives,高い,たかい,Takai,High/expensive
+61,Adjectives,低い,ひくい,Hikui,Low
+62,Adjectives,安い,やすい,Yasui,Cheap
+63,Adjectives,早い,はやい,Hayai,Fast/early
+64,Adjectives,遅い,おそい,Osoi,Slow
+65,Adjectives,忙しい,いそがしい,Isogashii,Busy
+66,Adjectives,美味しい,おいしい,Oishii,Delicious
+67,Adjectives,不味い,まずい,Mazui,Awful
+68,Adjectives,甘い,あまい,Amai,Sweet
+69,Adjectives,塩っぱい,しょっぱい ,Shoppai,Salty
+70,Adjectives,酸っぱい,すっぱい,Suppai,Sour
+71,Adjectives,苦い,にがい,Nigai,Bitter
+72,Adjectives,辛い,からい,Karai,Hot/ spicy
+73,Adjectives,熱い,あつい,Atsui,Hot
+74,Adjectives,暖かい,あたたかい,Atatakai,Warm
+75,Adjectives,冷たい,つめたい,Tsumetai,Cold
+76,Adjectives,明るい,あかるい,Akarui,Bright
+77,Adjectives,暗い,くらい,Kurai,Dark
+78,Verbs,,する,Suru,To do
+79,Verbs,見る,みる,Miru,To see
+80,Verbs,聞く,きく,Kiku,To listen
+81,Verbs,話す,はなす,Hanasu,To talk/speak
+82,Verbs,言う,いう,Iu,To say
+83,Verbs,書く,かく,Kaku,To write
+84,Verbs,食べる,たべる,Taberu,To eat
+85,Verbs,飲む,のむ,Nomu,To drink
+86,Verbs,歩く,あるく,Aruku,To walk
+87,Verbs,走る,はしる,Hashiru,To run
+88,Verbs,座る,すわる,Suwaru,To sit
+89,Verbs,立つ,たつ,Tatsu,To stand
+90,Food,食べ物,たべもの,Tabemono,Food
+91,Food,飲み物,のみもの,Nomimono,Drinks
+92,Food,ご飯,ごはん,Gohan,Rice/meal
+93,Food,水, みず,Mizu,Water/cold water
+94,Food,お湯,おゆ,Oyu,Hot water
+95,Food,肉,にく,Niku,Meat
+96,Food,野菜,やさい,Yasai,Vegetable
+97,Food,魚,さかな,Sakana,Fish
+98,Food,ラーメン,らあめん,Raamen,Ramen
+99,Food,寿司,すし,Sushi,Sushi
+100,Food,,おにぎり,Onigiri,Onigiri
