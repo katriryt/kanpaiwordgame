@@ -20,13 +20,13 @@ Below is the first draft of the user interface
 
 ## Basic Version Functionalities
 
-* User can create a new player, and log in and out as a player. (Note: At least in the first versions, the game can be played without logging in.)
-* User can select which type of words to learn, e.g. greetings, numbers, months, adjectives, verbs, or food.
-* User will see different writings in Japanese for a particular word, and select which of the shown translations in English is the correct one.
-* There are tips/hints to help the learning process.
-* User sees their statistics for the particular game (number of words to learn, number words learnt, time spent on the game).
-* User sees statistics for their games over time (games player, number of words learn, best time in solving a particular game).
-* User sees statistics for other players in the game (e.g. best times to solve particular games, best players in the game), contrasted with their own statistics. (Note: As in the beginning there are no other players in the game, there will be "imaginary" players in overall statistics). 
+* User can create a new player, and log in and out as a player. (DONE)
+* User can select which type of words to learn, e.g. greetings, numbers, months, adjectives, verbs, or food. (WIP)
+* User will see different writings in Japanese for a particular word, and select which of the shown translations in English is the correct one. (WIP)
+* There are tips/hints to help the learning process. (N/A)
+* User sees their statistics for the particular game (number of words to learn, number words learnt, time spent on the game). (N/A)
+* User sees statistics for their games over time (games player, number of words learn, best time in solving a particular game). (NA)
+* User sees statistics for other players in the game (e.g. best times to solve particular games, best players in the game), contrasted with their own statistics. (Note: As in the beginning there are no other players in the game, there will be "imaginary" players in overall statistics). (N/A)
 
 ## Future Development Ideas
 * User sees a word in English and selects the correct Japanese translation. 
@@ -37,7 +37,5 @@ Below is the first draft of the user interface
 
 The application will be available for testing in Heroku. 
 
-Latest release of the game will be available in GitHub.
 
-
-Updated 21.7.2021
+Updated 1.8.2021

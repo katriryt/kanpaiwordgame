@@ -1,21 +1,58 @@
-<!DOCTYPE html >
-<html>
-<head>
-    <link rel="icon" href="data:,">
-    <title>game</title>
-</head>
+{% extends "layout.html" %}
+{% block content %}
 
-<body>
+    <p><a href="/play_game?rndnm=-1&gamename=adjectives">start a new game with adjectives</a></p>
 
-    <h1>乾杯 かんぱい - Kanpai! wordgame </h1>
+    {% print('kyukkuluutruur') %}
+
+    <p><b>User id: </b> {{ session["user_id"] }} </p>
+    <p><b>User name: </b> {{ session["user_name"] }} </p>
+
+    <p>{% print(request.args['rndnm']) %}</p>
+
+    <p>{% print(session['gameinfo']) %}</p>
+
+    <p><a href="/play_game?rndnm={{ session['gameinfo']['roundnumber'] }}&gamename=adjectives">play the next round with adjectives</a></p>
 
     <h2>Games </h2>
-    <ul style="list-style-type:none">
-        <li><input type="radio" name="game" value="gr" checked> Greetings</li>
-        <li><input type="radio" name="game" value="nu" checked> Numbers</li>
-    </ul>
 
-    
+    <p>Note: links do not yet work </p>
 
-</body>
-</html>
+    <p>
+        {% for game_name in game_names %}
+            <a href="">{{game_name}}</href></a>
+        {% endfor %}
+    </p>
+
+    <h2>Game: {{ session['gameinfo']['gamename'] }}</h2>
+
+    {% if session['gameinfo']['roundnumber'] < session['gameinfo']['maxrounds']  %}
+        <p>
+            <div class ="alternatives">{{ series_cards[session['gameinfo']['roundnumber']][1] }}</div>
+            <div class ="alternatives">{{ series_cards[session['gameinfo']['roundnumber']][2] }}</div>
+            <div class ="alternatives">{{ series_cards[session['gameinfo']['roundnumber']][3] }}</div>
+        </p>
+        <p>
+            <div class ="alternatives_description">kanji</div>
+            <div class ="alternatives_description">hiragana/katakana</div>
+            <div class ="alternatives_description">roomaji</div>
+        </p>
+
+        <p><b>Select the correct meaning:</b></p>
+        <p>
+
+            {% for item in series_cards[session['gameinfo']['roundnumber']][5] %}
+                <button id="{{ loop.index }}" name="{{ loop.index }}" value="{{ item }}">{{item}}</button>
+            {% endfor %}
+        </p>
+
+        <p>Check: {{ series_cards[session['gameinfo']['roundnumber']] }}</p>
+
+    {% else: %}
+        <p> Game over! </p>
+
+    {% endif %}
+
+    <p>Want to sign out? <a href="/signout">Sign out</a></p>
+
+{% endblock %}

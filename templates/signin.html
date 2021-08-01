@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <p>Welcome back! Sign in for the game!</p>
+        
+    <hr>
+    <form action="/signin" method="post">
+            
+        <p>User name (2-5 characters):</p>
+        <p><input type="text" name="username" minlength="2" maxlength="5"></p>
+                
+        <p>Password (2-5 characters):</p>
+        <p><input type="password" name="password" minlength="2" maxlength="5"></p>
+
+        <hr>
+
+        <p>
+        <input type = "submit" value="Sign in & Play!">
+        </p>
+
+    </form>
+        
+    <p>Don't have a user name yet? <a href="/signup">Sign up</a></p>
+    
+    <p>Want to sign out? <a href="/signout">Sign out</a></p>
+
+{% endblock %}
