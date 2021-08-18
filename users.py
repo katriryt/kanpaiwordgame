@@ -45,7 +45,7 @@ def signin(given_name, given_password):
         session["user_name"] = given_name
         session["user_role"] = result[3]
         session["csrf_token"] = os.urandom(16).hex()
-        temp = { 'gamename' : 'Adjectives', 'roundnumber' : 0, 'maxrounds' : 19}
+        temp = { 'gamename' : 'Adjectives', 'roundnumber' : 0, 'maxrounds' : 19, 'correctanswers' : 0} # Asetetaan täällä alkuperäinen pelin nimi
         session['gameinfo'] = temp
 #        print("signin ok")
         return True
@@ -59,4 +59,12 @@ def signout():
     #del session["user_role"]
     session.clear()
 
+def check_csrf():
+#    print("csrf checkissa")
+#    print(session)
+#    print(session['csrf_token'])
 
+    if session['csrf_token'] != request.form["session_id"]:
+        print("csrf ei toiminut")
+        abort(403)
+    print("csrf toimi")

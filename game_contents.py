@@ -1,5 +1,6 @@
 from db import db
 import random
+from flask import session
 
 print("game_contents sivulla")
 
@@ -16,13 +17,20 @@ def get_game_names():
 def one_series_get_all(wanted_class):
     # This method returns raw data for one series from the database for the requested class of game (parameter)
     print("getting one series")
-    sql = "SELECT * FROM words WHERE class='Adjectives'"
-    one_series_data_raw = db.session.execute(sql).fetchall()
+#    new_class = wanted_class
+#    sql = "SELECT * FROM words WHERE class='Adjectives'" # this works
+    sql = "SELECT * FROM words WHERE class=:class" # works: gets the words for the wanted class
+    one_series_data_raw = db.session.execute(sql, {"class":wanted_class}).fetchall()
     return one_series_data_raw
 
 def one_series_game_cards():
     # This method returns all the information needed for full one_series_full_game, for the requested class of game (parameter)
-    given_wanted_class = 'Adjectives'
+#    given_wanted_class = 'Greetings' # works
+    temp = session['gameinfo'] # works
+#    print("testing moving game name")
+#    print(temp)
+#    print(temp['gamename'])
+    given_wanted_class = temp['gamename']
     one_series_data_raw = one_series_get_all(given_wanted_class)
 
     all_english_options = []

@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, request, redirect, session, make_response
-import game_contents, users
+import game_contents, users, game
 
 @app.route("/")
 def index(): 
@@ -15,16 +15,20 @@ def play_game():
 #            print('starting new game')
 #            print(session)
             temp = session['gameinfo']
+            print(temp)
             newround = int(request.args['rndnm']) + 1
             temp['roundnumber'] = newround
 #            print(temp)
             session['gameinfo'] = temp
+            print(temp)
         else:
 #            print('playing game')
             temp = session['gameinfo']
             newround = int(temp['roundnumber']) + 1
             temp['roundnumber'] = newround
+#            temp['gamename'] = 'Greetings' # Näin voidaan muuttaa pelin nimeä
             session['gameinfo'] = temp
+            print(temp)
     else:
 #        print('no arguments sent')
         pass
@@ -111,6 +115,36 @@ def signin():
 
         else:
             return render_template("error.html", message="Password was not correct, please try again") 
+
+@app.route("/feedback", methods=["get", "post"])
+def feedback():
+    print("feedback:ssa")
+    if request.method =="GET": 
+        print("muoto on get")
+        return render_template("feedback.html")
+
+    if request.method =="POST":
+        print("metodi on post")
+        users.check_csrf()
+        
+        game_class = request.form["gamename"]
+        player_id = request.form["player_id"]
+        session_id = request.form["session_id"]
+        points = int(request.form["stars"])
+        if points < 1 or points > 5: 
+            return render_template("error.html", message="Please select a number between 1 and 5")
+        comments = request.form["comments"]
+        if len(comments) > 2000: 
+            return render_template("error.html", message="Please write a shorter comment")
+        if comments =="":
+            comments ="N/A"
+        
+        print(game_class, player_id, session_id, points, comments)
+        game.save_feedback(game_class, player_id, session_id, points, comments)
+
+        #return redirect("/feedback")
+        return ('', 204)
+        
 
 @app.route("/signout")
 def signout():
