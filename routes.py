@@ -9,26 +9,30 @@ def index():
 @app.route("/play_game")
 def play_game():
 
-    if 'rndnm' in request.args:
+    if 'rndnm' in request.args: # pitänee varmistaa, että muuttujat nollia
 #        print('test')
         if request.args['rndnm'] == '-1':
-#            print('starting new game')
+            print('starting new game')
 #            print(session)
             temp = session['gameinfo']
-            print(temp)
+#            print(temp)
             newround = int(request.args['rndnm']) + 1
             temp['roundnumber'] = newround
 #            print(temp)
             session['gameinfo'] = temp
-            print(temp)
+#            print(temp)
+#            print(session)
         else:
-#            print('playing game')
-            temp = session['gameinfo']
-            newround = int(temp['roundnumber']) + 1
-            temp['roundnumber'] = newround
+            print('playing game')
+            pass
+#            print(session)
+#            temp = session['gameinfo']
+#            newround = int(temp['roundnumber']) + 1
+#            temp['roundnumber'] = newround
 #            temp['gamename'] = 'Greetings' # Näin voidaan muuttaa pelin nimeä
-            session['gameinfo'] = temp
-            print(temp)
+#            session['gameinfo'] = temp
+#            print(session)
+#            print(temp)
     else:
 #        print('no arguments sent')
         pass
@@ -42,6 +46,43 @@ def play_game():
     game_names=game_names, 
     series_cards=series_cards
     )
+
+@app.route("/processinput", methods=["post"])
+def processinput():
+    result = request.json['wasright']
+#    print(result)
+#    print("")
+#    print(session)
+#    print(request)
+#    print(request.json)
+#    print(request.json['wasright'])
+
+#    print(session['gameinfo']['roundnumber'])
+    session['gameinfo']['roundnumber'] +=1
+#    print(session['gameinfo']['roundnumber'])
+
+#    print(session['gameinfo']['correctanswers'])
+
+    if result == 1: 
+#        print("was correct")
+#        print(session['gameinfo']['correctanswers'])
+        session['gameinfo']['correctanswers'] += 1
+#        print(session['gameinfo']['correctanswers'])
+
+    print(session)
+    print(session['gameinfo']['maxrounds'])    
+
+    session.modified = True
+
+    if session['gameinfo']['roundnumber'] >= session['gameinfo']['maxrounds']-1:
+        print("rounds are done, time to save the results")
+        game.save_game_results(session['gameinfo']['gamename'], session['user_id'], session['csrf_token'], session['gameinfo']['words_total'], session['gameinfo']['correctanswers'])
+#        game.save_game_results(game_class, player_id, session_id, total_words, words_correct)
+
+#    print(session)
+
+    return ('', 200)
+
 
 @app.route("/signup", methods=["get", "post"])
 def signup():

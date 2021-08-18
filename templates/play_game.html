@@ -8,69 +8,85 @@ $(function(){
         var right = "{{ series_cards[session['gameinfo']['roundnumber']][4] }}";
         var fired_button = $(this).val();
         if (fired_button == right) {
-            // alert('You got the RIGHT answer!')
-            $('#output').html('You got the RIGHT answer!');
-            // change to next question
+            $('#output').html("Congratulations! The right answer really is: {{ series_cards[session['gameinfo']['roundnumber']][4] }}");
+            $.ajax({
+                url: 'http://127.0.0.1:5000/processinput',
+                type: 'POST',
+                data: JSON.stringify({'wasright': 1}),
+                contentType: 'application/json'
+            });
+//            console.log('right')
         } else {
-            // alert('You GOT THE WRONG answer!!!')
-            $('#output').html('You for the WRONG answer!!!');
+            $('#output').html("You picked the wrong answer. The right answer is: {{ series_cards[session['gameinfo']['roundnumber']][4] }}");
 
             $.ajax({
                 url: 'http://127.0.0.1:5000/processinput',
                 type: 'POST',
-                data: JSON.stringify('send whatever: stuff'),
-                processData: false,
+                data: JSON.stringify({'wasright': 0}),
                 contentType: 'application/json'
             });
+//            console.log('wrong')
         }
+        document.getElementById("1").disabled = true;
+        document.getElementById("2").disabled = true;
+        document.getElementById("3").disabled = true;
+        document.getElementById("4").disabled = true;
+
+        var nowroundnumber = parseInt("{{ session['gameinfo']['roundnumber'] }}");
+        var nextroundnumber = nowroundnumber+1;
+//        console.log(nextroundnumber);
+        var maxround = parseInt("{{ session['gameinfo']['maxrounds'] }}");
+//        console.log(maxround);
+        if (nextroundnumber < maxround) {
+            $('#nextround').show();
+//            console.log('Here we are');
+        } else {
+            $('#gameover').show();
+        };
         return false;
     });
 });
 </script>
 
-    <p><a href="/play_game?rndnm=-1&gamename=adjectives">start a new game with adjectives</a></p>
+<h2>Games </h2>
 
-    {% print('kyukkuluutruur') %}
+<p>Note: links do not yet work </p>
 
-    <hr>
+<p>
+    {% for game_name in game_names %} 
+        <a href="">{{game_name}}</href></a>
+    {% endfor %}
+</p>
 
+<form name="something" action="/play_game" method="POST">
+    <p>
+        {% for game_name in game_names %}
+            <input type="radio" name="wanted_game" value={{game_name}}> {{game_name}}
+        {% endfor %}
+    </p>
+</form>
+
+<hr>
     <h2>Game statistics </h2>
     <p><b>User id: </b> {{ session["user_id"] }} </p>
     <p><b>User name: </b> {{ session["user_name"] }} </p>
     <p><b>Game name: </b> {{ session["gameinfo"]["gamename"] }} </p>
-    <p><b>Words in game: </b> {{ session["gameinfo"]["maxrounds"] }} </p>
-    <p><b>Words played: </b> {{ session["gameinfo"]["roundnumber"] }} </p>
+    <p><b>Words in game: </b> {{ session["gameinfo"]["words_total"] }} </p>
+    <p><b>Round number: </b> {{ session["gameinfo"]["roundnumber"] }} </p>
     <p><b>Words correct: </b> {{ session["gameinfo"]["correctanswers"] }} </p>
 
     <hr>
+
+    <h2>Game: {{ session['gameinfo']['gamename'] }}</h2>
+
+    <p><a href="/play_game?rndnm=-1&gamename=adjectives">start a new game with adjectives</a></p>
 
     <p>{% print(request.args['rndnm']) %}</p>
 
     <p>{% print(session['gameinfo']) %}</p>
 
-    <p><a href="/play_game?rndnm={{ session['gameinfo']['roundnumber'] }}&gamename=adjectives">play the next round with adjectives</a></p>
+    <p><b>Word in Japanese </b></p>
 
-    <h2>Games </h2>
-
-    <p>Note: links do not yet work </p>
-
-    <p>
-        {% for game_name in game_names %} 
-            <a href="">{{game_name}}</href></a>
-        {% endfor %}
-    </p>
-
-    <form name="something" action="/play_game" method="POST">
-        <p>
-            {% for game_name in game_names %}
-                <input type="radio" name="wanted_game" value={{game_name}}> {{game_name}}
-            {% endfor %}
-        </p>
-    </form>
-
-    <h2>Game: {{ session['gameinfo']['gamename'] }}</h2>
-
-    {% if session['gameinfo']['roundnumber'] < session['gameinfo']['maxrounds']  %}
         <p>
             <div class ="alternatives">{{ series_cards[session['gameinfo']['roundnumber']][1] }}</div>
             <div class ="alternatives">{{ series_cards[session['gameinfo']['roundnumber']][2] }}</div>
@@ -82,7 +98,7 @@ $(function(){
             <div class ="alternatives_description">roomaji</div>
         </p>
 
-        <p><b>Select the correct meaning:</b></p>
+        <p><b>Select the correct meaning</b></p>
         <p>
 
             {% for item in series_cards[session['gameinfo']['roundnumber']][5] %}
@@ -95,14 +111,24 @@ $(function(){
 
         <p>
             <div id="output">
-                Placeholder
+                Please select a meaning for the word
             </div>
         </p>
 
-    {% else: %}
-        <p> Game over! </p>
+        <p>
+            <div id="nextround" style="display: none;">
+                <a href="/play_game?rndnm={{ session['gameinfo']['roundnumber'] }}&gamename=adjectives">play the next round with adjectives</a>
+            </div>
+        </p>
 
-    {% endif %}
+    <p> 
+        <div id="gameover" style="display: none;">
+            Game over!
+        </div> 
+    </p>
+
+    <hr>
+
     <p>Want to give feedback? <a href="/feedback">Feedback</a></p>
     <p>Want to sign out? <a href="/signout">Sign out</a></p>
 

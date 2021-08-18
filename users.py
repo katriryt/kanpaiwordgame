@@ -45,8 +45,9 @@ def signin(given_name, given_password):
         session["user_name"] = given_name
         session["user_role"] = result[3]
         session["csrf_token"] = os.urandom(16).hex()
-        temp = { 'gamename' : 'Adjectives', 'roundnumber' : 0, 'maxrounds' : 19, 'correctanswers' : 0} # Asetetaan täällä alkuperäinen pelin nimi
+        temp = { 'gamename' : 'Adjectives', 'roundnumber' : 0, 'maxrounds' : 20, 'correctanswers' : 0, 'words_total' : 20} # Asetetaan täällä alkuperäinen pelin nimi
         session['gameinfo'] = temp
+        print(session)
 #        print("signin ok")
         return True
     else:
