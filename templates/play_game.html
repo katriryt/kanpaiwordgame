@@ -7,8 +7,11 @@ $(function(){
     $("button").click(function() {
         var right = "{{ series_cards[session['gameinfo']['roundnumber']][4] }}";
         var fired_button = $(this).val();
+        var stats_updated_correct_answers = parseInt("{{ session['gameinfo']['correctanswers'] }}")+1;
+
         if (fired_button == right) {
             $('#output').html("Congratulations! The right answer really is: {{ series_cards[session['gameinfo']['roundnumber']][4] }}");
+            $('#stats_correct_answers').html("<b>Words correct: </b> " + stats_updated_correct_answers)
             $.ajax({
                 url: 'http://127.0.0.1:5000/processinput',
                 type: 'POST',
@@ -32,6 +35,9 @@ $(function(){
         document.getElementById("3").disabled = true;
         document.getElementById("4").disabled = true;
 
+        var stats_updated_round_number = parseInt("{{ session['gameinfo']['roundnumber'] }}")+1;
+        $('#stats_round_number').html("<b>Round number: </b> " + stats_updated_round_number)
+
         var nowroundnumber = parseInt("{{ session['gameinfo']['roundnumber'] }}");
         var nextroundnumber = nowroundnumber+1;
 //        console.log(nextroundnumber);
@@ -49,39 +55,29 @@ $(function(){
 </script>
 
 <h2>Games </h2>
+    <p>Select your game to be played </p>
 
-<p>Note: links do not yet work </p>
-
-<p>
-    {% for game_name in game_names %} 
-        <a href="">{{game_name}}</href></a>
-    {% endfor %}
-</p>
-
-<form name="something" action="/play_game" method="POST">
     <p>
-        {% for game_name in game_names %}
-            <input type="radio" name="wanted_game" value={{game_name}}> {{game_name}}
+        {% for game_name in game_names %} 
+            <a href="/play_game?changegame={{game_name}}">{{game_name}}</href></a>
         {% endfor %}
     </p>
-</form>
+
 
 <hr>
-    <h2>Game statistics </h2>
+<h2>Game statistics </h2>
     <p><b>User id: </b> {{ session["user_id"] }} </p>
     <p><b>User name: </b> {{ session["user_name"] }} </p>
     <p><b>Game name: </b> {{ session["gameinfo"]["gamename"] }} </p>
     <p><b>Words in game: </b> {{ session["gameinfo"]["words_total"] }} </p>
-    <p><b>Round number: </b> {{ session["gameinfo"]["roundnumber"] }} </p>
-    <p><b>Words correct: </b> {{ session["gameinfo"]["correctanswers"] }} </p>
+    <p id="stats_round_number"><b>Round number: </b> {{ session["gameinfo"]["roundnumber"] }} </p>
+    <p id ="stats_correct_answers"><b>Words correct: </b> {{ session["gameinfo"]["correctanswers"] }} </p>
 
     <hr>
 
-    <h2>Game: {{ session['gameinfo']['gamename'] }}</h2>
+<h2>Game: {{ session['gameinfo']['gamename'] }}</h2>
 
-    <p><a href="/play_game?rndnm=-1&gamename=adjectives">start a new game with adjectives</a></p>
-
-    <p>{% print(request.args['rndnm']) %}</p>
+    <p><a href="/play_game?restart=yes">Start a new game with {{ session["gameinfo"]["gamename"] }}</a></p>
 
     <p>{% print(session['gameinfo']) %}</p>
 
@@ -117,7 +113,7 @@ $(function(){
 
         <p>
             <div id="nextround" style="display: none;">
-                <a href="/play_game?rndnm={{ session['gameinfo']['roundnumber'] }}&gamename=adjectives">play the next round with adjectives</a>
+                <a href="/play_game">Play the next round with {{ session["gameinfo"]["gamename"] }}</a>
             </div>
         </p>
 
@@ -128,7 +124,7 @@ $(function(){
     </p>
 
     <hr>
-
+    <p>Want to see your statistics? <a href="/statistics">Statistics</a></p>
     <p>Want to give feedback? <a href="/feedback">Feedback</a></p>
     <p>Want to sign out? <a href="/signout">Sign out</a></p>
 

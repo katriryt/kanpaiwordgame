@@ -2,7 +2,7 @@ from db import db
 import random
 from flask import session
 
-print("game_contents sivulla")
+#print("game_contents sivulla")
 
 def get_game_names():
     # This method gets the names for the different games from the database
@@ -16,7 +16,9 @@ def get_game_names():
 
 def one_series_get_all(wanted_class):
     # This method returns raw data for one series from the database for the requested class of game (parameter)
-    print("getting one series")
+#    print("getting one series")
+#    print(wanted_class)
+
 #    new_class = wanted_class
 #    sql = "SELECT * FROM words WHERE class='Adjectives'" # this works
     sql = "SELECT * FROM words WHERE class=:class" # works: gets the words for the wanted class

@@ -12,7 +12,8 @@ def user_statistics(player_id):
                 CAST(100*AVG(words_correct)/MAX(total_words) as int) as average_rate
                 FROM game_statistics
                 WHERE player_id =:player_id 
-                GROUP BY player_id, game_class"""
+                GROUP BY player_id, game_class
+                ORDER BY game_class ASC"""
     player_stats = db.session.execute(sql, {"player_id":player_id}).fetchall()
 #    print(player_stats)
     return player_stats

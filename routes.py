@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, request, redirect, session, make_response
-import game_contents, users, game
+import game_contents, users, game, data_statistics
 
 @app.route("/")
 def index(): 
@@ -9,33 +9,29 @@ def index():
 @app.route("/play_game")
 def play_game():
 
-    if 'rndnm' in request.args: # pitänee varmistaa, että muuttujat nollia
-#        print('test')
-        if request.args['rndnm'] == '-1':
-            print('starting new game')
-#            print(session)
-            temp = session['gameinfo']
-#            print(temp)
-            newround = int(request.args['rndnm']) + 1
-            temp['roundnumber'] = newround
-#            print(temp)
-            session['gameinfo'] = temp
-#            print(temp)
-#            print(session)
+    if 'restart' in request.args:
+        restart_message = request.args['restart']
+        if restart_message == 'yes':
+#            print(session['gameinfo']['gamename'])
+            wanted_game = session['gameinfo']['gamename']
+#            print('asking for restart for : ' + wanted_game)
+            game.restart_game(wanted_game)
+
+    if 'changegame' in request.args:
+#        print(session['gameinfo']['gamename'])
+        change_game_message = request.args['changegame']
+#        print('asking for new game with: ' + change_game_message)
+        all_game_names = game_contents.get_game_names()
+#        print(all_game_names)
+        if change_game_message in all_game_names:
+            game.restart_game(change_game_message)
         else:
-            print('playing game')
-            pass
-#            print(session)
-#            temp = session['gameinfo']
-#            newround = int(temp['roundnumber']) + 1
-#            temp['roundnumber'] = newround
-#            temp['gamename'] = 'Greetings' # Näin voidaan muuttaa pelin nimeä
-#            session['gameinfo'] = temp
-#            print(session)
-#            print(temp)
-    else:
-#        print('no arguments sent')
-        pass
+            return render_template("error.html", message="Game does not exist")
+
+    if session['gameinfo']['roundnumber']+1 > session['gameinfo']['maxrounds']:
+#        print('print, oli jo maksimissa, jatketaan samalla pelillä')
+        continue_current_game = session['gameinfo']['gamename']
+        game.restart_game(continue_current_game)
 
     game_names=game_contents.get_game_names()
     series_cards=game_contents.one_series_game_cards()
@@ -69,13 +65,13 @@ def processinput():
         session['gameinfo']['correctanswers'] += 1
 #        print(session['gameinfo']['correctanswers'])
 
-    print(session)
-    print(session['gameinfo']['maxrounds'])    
+#    print(session)
+#    print(session['gameinfo']['maxrounds'])    
 
     session.modified = True
 
     if session['gameinfo']['roundnumber'] >= session['gameinfo']['maxrounds']-1:
-        print("rounds are done, time to save the results")
+#        print("rounds are done, time to save the results")
         game.save_game_results(session['gameinfo']['gamename'], session['user_id'], session['csrf_token'], session['gameinfo']['words_total'], session['gameinfo']['correctanswers'])
 #        game.save_game_results(game_class, player_id, session_id, total_words, words_correct)
 
@@ -131,7 +127,7 @@ def signin():
         return render_template("signin.html")
 
     if request.method=="POST":
-        print("writing something")
+#        print("writing something")
         username = request.form["username"] 
         password = request.form["password"]
 
@@ -159,13 +155,13 @@ def signin():
 
 @app.route("/feedback", methods=["get", "post"])
 def feedback():
-    print("feedback:ssa")
+#    print("feedback:ssa")
     if request.method =="GET": 
-        print("muoto on get")
+#        print("muoto on get")
         return render_template("feedback.html")
 
     if request.method =="POST":
-        print("metodi on post")
+#        print("metodi on post")
         users.check_csrf()
         
         game_class = request.form["gamename"]
@@ -180,12 +176,23 @@ def feedback():
         if comments =="":
             comments ="N/A"
         
-        print(game_class, player_id, session_id, points, comments)
+#        print(game_class, player_id, session_id, points, comments)
         game.save_feedback(game_class, player_id, session_id, points, comments)
 
         #return redirect("/feedback")
         return ('', 204)
         
+@app.route("/statistics")
+def statistics():
+#    print("tilasto-sivulla")
+#    game_names = game_contents.get_game_names()
+    player_id = session['user_id']
+    user_stats = data_statistics.user_statistics(player_id)
+#    print(user_stats)
+#    return render_template("statistics.html", game_names=game_names, user_stats=user_stats)
+    best_game_stats = data_statistics.best_game_statistics()
+#    print(best_game_stats)
+    return render_template("statistics.html", user_stats=user_stats, best_game_stats=best_game_stats)
 
 @app.route("/signout")
 def signout():
