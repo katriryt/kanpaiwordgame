@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+function updateRow(item_id) {
+    console.log(item_id);
+    var text_input = $("#response_"+item_id).val();
+    console.log(text_input);
+    var hidden_input = $("#checkbox_"+item_id).is(':checked');
+    console.log(hidden_input);
+    $.ajax({
+                url: './admin_feedback_update',
+                type: 'POST',
+                data: JSON.stringify({'given_id': item_id, 'new_text': text_input, 'hidden_value' : hidden_input, 'session_id': '{{ session.csrf_token }}' }),
+                contentType: 'application/json'
+            });
+}
+
+</script>
+
+<h2>Response to feedbacks</h2>
+<p>See feedback for all the games - answer to the feedbacks and delete them</p>
+<br/>
+
+
+<table name="feedback_given" class="center">
+    <tr>
+        <th>Feedback id</th>
+        <th>Game name</th>
+        <th>Player id</th>
+        <th>Session id</th>
+        <th>Stars</th>
+        <th>Comments</th>
+        <th>Response</th>
+        <th>Hidden</th>
+        <th>Click to update</th>
+    </tr>
+
+  
+        {% for item in all_feedback %}
+        <tr>
+            <td>{{item[0]}}</td>
+            <td>{{item[1]}}</td>
+            <td>{{item[2]}}</td>
+            <td>{{item[3]}}</td>
+            <td>{{item[4]}}</td>
+            <td>{{item[5]}}</td>
+            <td><textarea id="response_{{item[0]}}" maxlength="250"> {{item[6]}}</textarea></td>
+            <td><input id="checkbox_{{item[0]}}" type="checkbox" {% if item[7] == 1 %} checked {% endif %}></td>
+            <td><button id="button_{{item[0]}}" onclick="updateRow({{item[0]}})">Update {{item[0]}}</button></td>
+        </tr>
+        {% endfor %}
+
+</table> 
+
+
+
+<hr>
+<p>Want to return to the game? <a href="/play_game">Play game</a></p>
+<p>Want to see your statistics? <a href="/statistics">Statistics</a></p>
+<p>Want to sign out? <a href="/signout">Sign out</a></p>
+
+{% endblock %}

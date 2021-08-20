@@ -63,7 +63,7 @@ def processinput():
 
 #    print(session['gameinfo']['correctanswers'])
 
-    if result == 1: 
+    if result == 1:
 #        print("was correct")
 #        print(session['gameinfo']['correctanswers'])
         session['gameinfo']['correctanswers'] += 1
@@ -73,6 +73,7 @@ def processinput():
 #    print(session['gameinfo']['maxrounds'])    
 
     session.modified = True
+#    print(session)
 
     if session['gameinfo']['roundnumber'] >= session['gameinfo']['maxrounds']-1:
 #        print("rounds are done, time to save the results")
@@ -176,7 +177,7 @@ def feedback():
         if points < 1 or points > 5: 
             return render_template("error.html", message="Please select a number between 1 and 5")
         comments = request.form["comments"]
-        if len(comments) > 2000: 
+        if len(comments) > 200: 
             return render_template("error.html", message="Please write a shorter comment")
         if comments =="":
             comments ="N/A"
@@ -205,6 +206,35 @@ def see_feedback():
     users.require_role(1)
     latest_five_feedbacks = data_statistics.latest_five_feedback_by_game()
     return render_template("see_feedback.html", latest_five_feedbacks=latest_five_feedbacks)
+
+@app.route("/admin_feedback")
+def admin_feedback():
+    users.require_role(2)
+    all_feedback = data_statistics.get_all_feedback()
+    return render_template("admin_feedback.html", all_feedback=all_feedback)
+
+
+@app.route("/admin_feedback_update", methods=["post"])
+def admin_feedback_update():
+#    print("admin feedback updateissa")
+    users.require_role(2)
+    users.check_ajax_csrf(request.json['session_id'])
+    given_id = request.json['given_id']
+    raw_new_text = request.json['new_text']
+    raw_hidden_value = request.json['hidden_value']
+
+    if len(raw_new_text) < 200:
+        new_text = raw_new_text
+    else: 
+        new_text = "N/A"
+    if raw_hidden_value > 1 or raw_hidden_value < 0:
+        hidden_value = 0
+    else: 
+        hidden_value = raw_hidden_value
+
+    data_statistics.admin_update_feedback(given_id, new_text, hidden_value)
+
+    return ('', 200)
 
 @app.route("/signout")
 def signout():

@@ -50,13 +50,16 @@ def latest_five_feedback_by_game():
     sql = """SELECT 
                 game_class, 
                 points, 
-                comments 
+                comments,
+                response 
                 FROM(
                     SELECT 	game_class,
                             points, 
-                            comments, 
+                            comments,
+                            response, 
                             ROW_NUMBER () OVER (PARTITION BY game_class ORDER BY id DESC) as latest_comments
                             FROM feedback 
+                            WHERE hidden = '0'
                     ) AS Y
                     WHERE Y.latest_comments <= 5
                     ORDER BY game_class ASC
@@ -64,3 +67,25 @@ def latest_five_feedback_by_game():
     latest_five_by_class = db.session.execute(sql).fetchall()
 #    print(latest_five_by_class)
     return latest_five_by_class
+
+def get_all_feedback():
+#    print("getting all feedback")
+    sql = """SELECT * from feedback"""
+    all_feedback = db.session.execute(sql).fetchall()
+    return all_feedback
+
+def admin_update_feedback(given_id, new_text, hidden_value):
+#    print("updating feedback")
+    try:
+        sql = """UPDATE feedback
+            SET response = :new_text, 
+	        hidden = :hidden_value
+            WHERE id = :given_id;
+        """
+        db.session.execute(sql, {"new_text":new_text, "hidden_value":hidden_value, "given_id":given_id})
+        db.session.commit()
+    except Exception as e:
+#        print(e)
+        return False
+#    print("try went ok")
+    return True

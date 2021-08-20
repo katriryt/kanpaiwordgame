@@ -3,10 +3,11 @@
 
     <p><img src="/static/matsuri.jpg" alt="Picture of Japanese lanterns in Tokyo" width="320px"></p>
 
-    <p>New user? <a href="/signup">Join now!</a></p>
-    
-    <p>You've been here before? <a href="/signin">Sign in</a></p>
-
-    <p>Want to sign out? <a href="/signout">Sign out</a></p>
+    {% if session['user_id'] %}
+        <p>Want to sign out? <a href="/signout">Sign out</a></p>
+    {% else %}
+        <p>New user? <a href="/signup">Join now!</a></p>
+        <p>You've been here before? <a href="/signin">Sign in</a></p>
+    {% endif %}
 
 {% endblock %}

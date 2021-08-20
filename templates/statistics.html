@@ -61,13 +61,13 @@
         <td> </td>
     </tr>
     
+    {% for item in best_game_stats %}
     <tr>
-        {% for item in best_game_stats %}
-            {% for data in item %}
-            <td>{{data}}</td>
-            {% endfor %}
-        <tr>
+        {% for data in item %}
+        <td>{{data}}</td>
         {% endfor %}
+    </tr>
+    {% endfor %}
 
 </table>
 

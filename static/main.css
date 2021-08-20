@@ -43,7 +43,7 @@ body {
     display: inline-block;
 }
 
-button {
+button.ans {
     border: 1px outset black;
     background-color: #af4c6d; 
     color: white;
@@ -58,14 +58,14 @@ button {
     text-decoration: none;
 }
 
-button:hover {
+button.ans:hover {
     background-color: #afa04c; 
     color: white;
 }
-button:focus{
+button.ans:focus{
     background-color:rgb(0, 255, 85)
 }
-button:disabled{
+button.ans:disabled{
     background-color:rgb(189, 185, 185)
 }
 
@@ -74,11 +74,14 @@ table {
     border-spacing: 0;
     width: 100%;
     border: 1px solid #ddd;
+    table-layout: fixed;
   }
   
   th, td {
     text-align: left;
     padding: 16px;
+    max-width: 200px;
+    word-wrap: break-word;
   }
   
   tr:nth-child(even) {

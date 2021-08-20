@@ -25,7 +25,7 @@ $(function(){
             $.ajax({
                 url: './processinput',
                 type: 'POST',
-                data: JSON.stringify({'wasright': 0}),
+                data: JSON.stringify({'wasright': 0, 'session_id': '{{ session.csrf_token }}'}),
                 contentType: 'application/json'
             });
 //            console.log('wrong')
@@ -88,7 +88,7 @@ $(function(){
         <p>
 
             {% for item in series_cards[session['gameinfo']['roundnumber']][5] %}
-                <button id="{{ loop.index }}" name="{{ loop.index }}" value="{{ item }}">{{item}}</button>
+                <button class="ans" id="{{ loop.index }}" name="{{ loop.index }}" value="{{ item }}">{{item}}</button>
             {% endfor %}
         </p>
 
