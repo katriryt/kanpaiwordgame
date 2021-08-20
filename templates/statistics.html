@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Statistics</h2>
+<p>See your statistics vs. other players here!</p>
+<br>
+
+<p><b>Statistics for {{ session["user_name"] }}'s games</b></p>
+
+<table name="mystats" class="center">
+    <tr>
+        <th>Game name</th>
+        <th>Words to learn</th>
+        <th>Highest correct </th>
+        <th>Highest correct </th>
+        <th>Games played</th>
+        <th>Average correct</th>
+        <th>Average correct</th>
+    </tr>
+
+    <tr>
+        <td> </td>
+        <td>Number</td>
+        <td>Number</td>
+        <td>Percent</td>
+        <td>Number</td>
+        <td>Number</td>
+        <td>Percent</td>
+    </tr>
+    
+    <tr>
+        {% for item in user_stats %}
+            {% for data in item %}
+            <td>{{data}}</td>
+            {% endfor %}
+        <tr>
+        {% endfor %}
+
+</table>
+
+<br>
+
+<p><b>Statistics for best games played </b></p>
+
+<table name="beststats" class="center">
+    <tr>
+        <th>Game name</th>
+        <th>Times played</th>
+        <th>Words to learn</th>
+        <th>Highest correct </th>
+        <th>Highest correct </th>
+        <th>Best player</th>
+    </tr>
+
+    <tr>
+        <td> </td>
+        <td>Number</td>
+        <td>Number</td>
+        <td>Number</td>
+        <td>Percent</td>
+        <td> </td>
+    </tr>
+    
+    <tr>
+        {% for item in best_game_stats %}
+            {% for data in item %}
+            <td>{{data}}</td>
+            {% endfor %}
+        <tr>
+        {% endfor %}
+
+</table>
+
+<hr>
+
+<p>Want to return to the game? <a href="/play_game">Play game</a></p>
+<p>Want to give feedback? <a href="/feedback">Feedback</a></p>
+<p>Want to sign out? <a href="/signout">Sign out</a></p>
+
+{% endblock %}
