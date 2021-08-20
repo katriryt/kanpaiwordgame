@@ -200,6 +200,12 @@ def statistics():
 #    print(best_game_stats)
     return render_template("statistics.html", user_stats=user_stats, best_game_stats=best_game_stats)
 
+@app.route("/see_feedback")
+def see_feedback():
+    users.require_role(1)
+    latest_five_feedbacks = data_statistics.latest_five_feedback_by_game()
+    return render_template("see_feedback.html", latest_five_feedbacks=latest_five_feedbacks)
+
 @app.route("/signout")
 def signout():
     users.signout()

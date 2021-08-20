@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Overview of feedbacks</h2>
+<p>See feedback for the games!</p>
+<br>
+
+<table name="feedback_given" class="center">
+    <tr>
+        <th>Game name</th>
+        <th>Stars</th>
+        <th>Comments</th>
+    </tr>
+
+    <tr>
+        {% for item in latest_five_feedbacks %}
+            {% for data in item %}
+            <td>{{data}}</td>
+            {% endfor %}
+        <tr>
+        {% endfor %}
+
+</table> 
+<br>
+<hr>
+
+<p>Want to return to the game? <a href="/play_game">Play game</a></p>
+<p>Want to give feedback? <a href="/feedback">Feedback</a></p>
+<p>Want to sign out? <a href="/signout">Sign out</a></p>
+
+{% endblock %}

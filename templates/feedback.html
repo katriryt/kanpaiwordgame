@@ -31,7 +31,7 @@
             <p>&nbsp;</p>
 
             <p><b>Please write your comments here</b></p>
-            <textarea name="comments" rows = 5 cols ="40" maxlength ="2000"></textarea>
+            <textarea name="comments" rows = 5 cols ="40" maxlength ="200"></textarea>
             <p><input id="submit_feedback" type="submit" value="Send" onclick="DisableButton();"></p>
             <input type ="hidden" name="gamename" value={{session.gameinfo.gamename}}></input>
             <input type ="hidden" name="session_id" value={{session.csrf_token }}></input>
@@ -50,6 +50,7 @@
 
     <p>Want to return to the game? <a href="/play_game">Play game</a></p>
     <p>Want to see your statistics? <a href="/statistics">Statistics</a></p>
+    <p>Want to see what others said? <a href="/see_feedback">See feedback</a></p>
     <p>Want to sign out? <a href="/signout">Sign out</a></p>
 
     {% endblock %}
