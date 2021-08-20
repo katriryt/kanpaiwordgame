@@ -8,6 +8,7 @@ def index():
 
 @app.route("/play_game")
 def play_game():
+    users.require_role(1)
 
     if 'restart' in request.args:
         restart_message = request.args['restart']
@@ -45,6 +46,9 @@ def play_game():
 
 @app.route("/processinput", methods=["post"])
 def processinput():
+#    print("process input tsekkauksessa")
+    users.require_role(1)
+    users.check_ajax_csrf(request.json['session_id'])
     result = request.json['wasright']
 #    print(result)
 #    print("")
@@ -156,13 +160,14 @@ def signin():
 @app.route("/feedback", methods=["get", "post"])
 def feedback():
 #    print("feedback:ssa")
+    users.require_role(1)
     if request.method =="GET": 
 #        print("muoto on get")
         return render_template("feedback.html")
 
     if request.method =="POST":
 #        print("metodi on post")
-        users.check_csrf()
+        users.check_form_csrf()
         
         game_class = request.form["gamename"]
         player_id = request.form["player_id"]
@@ -185,6 +190,7 @@ def feedback():
 @app.route("/statistics")
 def statistics():
 #    print("tilasto-sivulla")
+    users.require_role(1)
 #    game_names = game_contents.get_game_names()
     player_id = session['user_id']
     user_stats = data_statistics.user_statistics(player_id)

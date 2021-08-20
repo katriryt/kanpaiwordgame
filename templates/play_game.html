@@ -15,7 +15,7 @@ $(function(){
             $.ajax({
                 url: './processinput',
                 type: 'POST',
-                data: JSON.stringify({'wasright': 1}),
+                data: JSON.stringify({'wasright': 1, 'session_id': '{{ session.csrf_token }}' }),
                 contentType: 'application/json'
             });
 //            console.log('right')

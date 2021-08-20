@@ -47,7 +47,7 @@ def signin(given_name, given_password):
         session["csrf_token"] = os.urandom(16).hex()
         temp = { 'gamename' : 'Adjectives', 'roundnumber' : 0, 'maxrounds' : 20, 'correctanswers' : 0, 'words_total' : 20} # Asetetaan täällä alkuperäinen pelin nimi
         session['gameinfo'] = temp
-        print(session)
+#        print(session)
 #        print("signin ok")
         return True
     else:
@@ -60,12 +60,33 @@ def signout():
     #del session["user_role"]
     session.clear()
 
-def check_csrf():
+
+def check_ajax_csrf(given_session_id):
+#    print("csrf checkissa")
+#    print(session)
+#    print(session['csrf_token'])
+
+    if session['csrf_token'] != given_session_id:
+#        print("ajax csrf ei toiminut")
+        abort(403)
+#    print("ajax csrf toimi")
+
+def check_form_csrf():
 #    print("csrf checkissa")
 #    print(session)
 #    print(session['csrf_token'])
 
     if session['csrf_token'] != request.form["session_id"]:
-        print("csrf ei toiminut")
+#        print("csrf ei toiminut")
         abort(403)
-    print("csrf toimi")
+#    print("csrf toimi")
+
+def require_role(role):
+#    print("vaatii roolia tasolta: ")
+#    print(role)
+#    print("käyttäjän rooli on: ")
+#    print(session['user_role'])
+    if role > session['user_role']:
+#        print("vaadittu rooli ei täyttynyt")
+        abort(403)
+#    print("rooli ok")
