@@ -54,32 +54,22 @@ $(function(){
 });
 </script>
 
+<div class="container">
+
+<div class="boxone">
 <h2>Games </h2>
     <p>Select your game to be played </p>
 
-    <p>
-        {% for game_name in game_names %} 
-            <a href="/play_game?changegame={{game_name}}">{{game_name}}</href></a>
+    {% for game_name in game_names %} 
+        <p><a href="/play_game?changegame={{game_name}}">{{game_name}}</href></a></p>
         {% endfor %}
-    </p>
+    
+</div>
 
-
-<hr>
-<h2>Game statistics </h2>
-    <p><b>User id: </b> {{ session["user_id"] }} </p>
-    <p><b>User name: </b> {{ session["user_name"] }} </p>
-    <p><b>Game name: </b> {{ session["gameinfo"]["gamename"] }} </p>
-    <p><b>Words in game: </b> {{ session["gameinfo"]["words_total"] }} </p>
-    <p id="stats_round_number"><b>Round number: </b> {{ session["gameinfo"]["roundnumber"] }} </p>
-    <p id ="stats_correct_answers"><b>Words correct: </b> {{ session["gameinfo"]["correctanswers"] }} </p>
-
-    <hr>
-
+<div class="boxtwo">
 <h2>Game: {{ session['gameinfo']['gamename'] }}</h2>
 
     <p><a href="/play_game?restart=yes">Start a new game with {{ session["gameinfo"]["gamename"] }}</a></p>
-
-    <p>{% print(session['gameinfo']) %}</p>
 
     <p><b>Word in Japanese </b></p>
 
@@ -102,28 +92,42 @@ $(function(){
             {% endfor %}
         </p>
 
-        <p>Check: {{ series_cards[session['gameinfo']['roundnumber']] }}</p>
-        <p>Right answer: {{ series_cards[session['gameinfo']['roundnumber']][4] }}</p>
-
         <p>
             <div id="output">
-                Please select a meaning for the word
             </div>
         </p>
 
         <p>
             <div id="nextround" style="display: none;">
-                <a href="/play_game">Play the next round with {{ session["gameinfo"]["gamename"] }}</a>
+                <b><a href="/play_game">Play the next round with {{ session["gameinfo"]["gamename"] }}</a></b>
             </div>
         </p>
+
+        <br />
+        <p>{% print(session['gameinfo']) %}</p>
+        <p>Check: {{ series_cards[session['gameinfo']['roundnumber']] }}</p>
+        <p>Right answer: {{ series_cards[session['gameinfo']['roundnumber']][4] }}</p>
 
     <p> 
         <div id="gameover" style="display: none;">
             Game over!
         </div> 
     </p>
+</div>
 
-    <hr>
+<div class="boxthree">
+    <h2>Game statistics </h2>
+        <p><b>User id: </b> {{ session["user_id"] }} </p>
+        <p><b>User name: </b> {{ session["user_name"] }} </p>
+        <p><b>Game name: </b> {{ session["gameinfo"]["gamename"] }} </p>
+        <p><b>Words in game: </b> {{ session["gameinfo"]["words_total"] }} </p>
+        <p id="stats_round_number"><b>Round number: </b> {{ session["gameinfo"]["roundnumber"] }} </p>
+        <p id ="stats_correct_answers"><b>Words correct: </b> {{ session["gameinfo"]["correctanswers"] }} </p>
+</div>
+
+</div>
+
+<hr>
     <p>Want to see your statistics? <a href="/statistics">Statistics</a></p>
     <p>Want to give feedback? <a href="/feedback">Feedback</a></p>
     <p>Want to sign out? <a href="/signout">Sign out</a></p>
