@@ -13,7 +13,7 @@ $(function(){
             $('#output').html("Congratulations! The right answer really is: {{ series_cards[session['gameinfo']['roundnumber']][4] }}");
             $('#stats_correct_answers').html("<b>Words correct: </b> " + stats_updated_correct_answers)
             $.ajax({
-                url: 'http://127.0.0.1:5000/processinput',
+                url: './processinput',
                 type: 'POST',
                 data: JSON.stringify({'wasright': 1}),
                 contentType: 'application/json'
@@ -23,7 +23,7 @@ $(function(){
             $('#output').html("You picked the wrong answer. The right answer is: {{ series_cards[session['gameinfo']['roundnumber']][4] }}");
 
             $.ajax({
-                url: 'http://127.0.0.1:5000/processinput',
+                url: './processinput',
                 type: 'POST',
                 data: JSON.stringify({'wasright': 0}),
                 contentType: 'application/json'
