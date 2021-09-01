@@ -3,12 +3,23 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
-    function DisableButton() {
+    function DisableButton(form) {
+        if ((form.stars.value < 1) || (form.stars.value > 5)) {
+            alert(("Please select a rating between 1 and 5"));
+            return false;
+        }
+
+        if (form.comments.value.length > 200) {
+            alert("Please write a shorter comment; maximum length is 200 characters");
+            return false;
+        }
+
         document.getElementById("submit_feedback").disabled = true;
         document.getElementById("feedback_form").submit();
         $('#output').html('<b>Thank you for your feedback!</b>');
         $('#output').show();
     }
+
 </script>
 
     <h2>Feedback</h2>
@@ -16,7 +27,7 @@
     <p>We appreciate your feedback on your {{ session["gameinfo"]["gamename"] }} game!</p>
     <br>
 
-    <form id="feedback_form" action="/feedback" method="post">
+    <form id="feedback_form" action="/feedback" method="post" onsubmit="return DisableButton(this)">
 
         <p><b>Please rate the game with stars</b></p>
         <p>Scale: 5 - I could play this all day, 1 - I can survive one round</p>
@@ -31,8 +42,9 @@
             <p>&nbsp;</p>
 
             <p><b>Please write your comments here</b></p>
+            <p>Maximum length: 200 characters</p>
             <textarea name="comments" rows = "5" cols ="40" maxlength ="200"></textarea>
-            <p><input id="submit_feedback" type="submit" value="Send" onclick="DisableButton();"></p>
+            <p><input id="submit_feedback" type="submit" value="Send"></p>
             <input type ="hidden" name="gamename" value={{session.gameinfo.gamename}}></input>
             <input type ="hidden" name="session_id" value={{session.csrf_token }}></input>
             <input type ="hidden" name="player_id" value={{session.user_id}}></input>

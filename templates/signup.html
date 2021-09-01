@@ -1,10 +1,46 @@
 {% extends "layout.html" %}
 {% block content %}
 
+<script>
+    function check(form) {
+        if (form.username.value == "") {
+            alert("Please insert a username");
+            return false;
+        }
+
+        if ((form.username.value.length < 2) || (form.username.value.length > 5)) {
+            alert("User name must be 2-5 characters long, please try again");
+            return false;
+        }
+
+        if ((form.password1.value == "") || (form.password2.value == "")) {
+            alert("Please insert a password");
+            return false;
+        }
+
+        if ((form.password1.value.length < 2) || (form.password1.value.length > 5) || (form.password2.value.length < 2) || (form.password2.value.length > 5)) {
+            alert("Password must be 2-5 characters long, please try again");
+            return false;
+        }
+
+        if (form.password1.value != form.password2.value ) {
+            alert("Passwords did not match, please try again");
+            return false;
+        }
+
+        if ((form.role.value != 1) && (form.role.value != 2)) {
+            alert("Please select a role from the drop down menu");
+            return false;
+        }
+
+        return true;
+}
+</script>
+
         <h2>Sign up for the game!</h2>
         
         <hr>
-        <form action="/signup" method="post">
+        <form action="/signup" method="post" onsubmit="return check(this)">
             
                 <p>User name (2-5 characters):</p>
                 <p><input type="text" name="username" minlength="2" maxlength="5"></p>

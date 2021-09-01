@@ -175,7 +175,7 @@ def feedback():
         session_id = request.form["session_id"]
         points = int(request.form["stars"])
         if points < 1 or points > 5: 
-            return render_template("error.html", message="Please select a number between 1 and 5")
+            return render_template("error.html", message="Please select a rating between 1 and 5")
         comments = request.form["comments"]
         if len(comments) > 200: 
             return render_template("error.html", message="Please write a shorter comment")
@@ -223,9 +223,9 @@ def admin_feedback_update():
     raw_new_text = request.json['new_text']
     raw_hidden_value = request.json['hidden_value']
 
-    if len(raw_new_text) < 200:
+    if len(raw_new_text) < 201:
         new_text = raw_new_text
-    else: 
+    else: # see later if send an error message in this case or just use N/A
         new_text = "N/A"
     if raw_hidden_value > 1 or raw_hidden_value < 0:
         hidden_value = 0

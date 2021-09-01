@@ -7,6 +7,10 @@ function updateRow(item_id) {
     console.log(item_id);
     var text_input = $("#response_"+item_id).val();
     console.log(text_input);
+    if (text_input.length > 200) {
+        alert("Please write a shorter comment; maximum length of comments is 200 characters");
+        return false;
+    }
     var hidden_input = $("#checkbox_"+item_id).is(':checked');
     console.log(hidden_input);
     $.ajax({
@@ -46,7 +50,7 @@ function updateRow(item_id) {
             <td>{{item[3]}}</td>
             <td>{{item[4]}}</td>
             <td>{{item[5]}}</td>
-            <td><textarea id="response_{{item[0]}}" maxlength="250"> {{item[6]}}</textarea></td>
+            <td><textarea id="response_{{item[0]}}" maxlength="200"> {{item[6]}}</textarea></td>
             <td><input id="checkbox_{{item[0]}}" type="checkbox" {% if item[7] == 1 %} checked {% endif %}></td>
             <td><button id="button_{{item[0]}}" onclick="updateRow({{item[0]}})">Update {{item[0]}}</button></td>
         </tr>

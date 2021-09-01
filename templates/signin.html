@@ -1,14 +1,40 @@
 {% extends "layout.html" %}
 {% block content %}
 
+<script>
+    function check(form) {
+        if (form.username.value == "") {
+            alert("Please insert a username");
+            return false;
+        }
+
+        if ((form.username.value.length < 2) || (form.username.value.length > 5)) {
+            alert("User name must be 2-5 characters long, please try again");
+            return false;
+        }
+
+        if (form.password.value == "") {
+            alert("Please insert a password");
+            return false;
+        }
+
+        if ((form.password.value.length < 2) || (form.password.value.length > 5)) {
+            alert("Password must be 2-5 characters long, please try again");
+            return false;
+        }
+
+        return true;
+}
+</script>
+
     <p>Welcome back! Sign in for the game!</p>
         
     <hr>
-    <form action="/signin" method="post">
+    <form action="/signin" method="post" onsubmit="return check(this)">
             
         <p>User name (2-5 characters):</p>
         <p><input type="text" name="username" minlength="2" maxlength="5"></p>
-                
+
         <p>Password (2-5 characters):</p>
         <p><input type="password" name="password" minlength="2" maxlength="5"></p>
 
