@@ -37,9 +37,11 @@
 }
 </script>
 
-        <h2>Sign up for the game!</h2>
+        <h2 style="text-align: center;">Sign up for the game!</h2>
         
-        <hr>
+<div class=container>
+    <div class="centerbox">
+
         <form action="/signup" method="post" onsubmit="return check(this)">
             
                 <p>User name (2-5 characters):</p>
@@ -65,8 +67,8 @@
 
         </form>
         
-        <p>Already with a user name? <a href="/signin">Sign in</a></p>
-
-        <p>Want to sign out? <a href="/signout">Sign out</a></p>
+        <p>Already with an account? <a href="/signin">Sign in</a></p>
+    </div>
+</div>
     
 {% endblock %}
