@@ -113,4 +113,24 @@ table {
   tr:nth-child(even) {
     background-color: #f2f2f2;
   }
- 
+
+#animated-bg {
+    background: url("../static/pic1.JPG") no-repeat center center;
+    transition: background 2s;
+    max-width: 200vh;
+    min-height: 75vh;
+    position:relative;
+    margin-left: auto;
+    margin-right: auto;
+    }
+
+#animated-bg:before {
+    content:"";
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background-color: rgb(207, 161, 200);
+    opacity:0.3;
+    }
