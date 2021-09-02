@@ -13,6 +13,14 @@
 <body>
     <h1> 乾杯 かんぱい - Kanpai! wordgame </h1>
 
+    {% if session['user_id'] %}       
+
+        <div class="signout">
+            <a href="/signout">Sign out</a>
+        </div>
+
+        {% endif %}
+
     <hr>
 
 {% block content %}{% endblock %}
