@@ -22,16 +22,20 @@
 
 </script>
 
-    <h2>Feedback</h2>
+<h2 style="text-align: center;">Feedback</h2>
+
+<div class="container">
+    <div class="centerbox"> 
 
     <p>We appreciate your feedback on your {{ session["gameinfo"]["gamename"] }} game!</p>
-    <br>
 
     <form id="feedback_form" action="/feedback" method="post" onsubmit="return DisableButton(this)">
 
+        <p>&nbsp;</p>
+
         <p><b>Please rate the game with stars</b></p>
-        <p>Scale: 5 - I could play this all day, 1 - I can survive one round</p>
-        <select name="stars">
+
+            <select name="stars">
                 <option value ="5">5</option>
                 <option value ="4">4</option>
                 <option value ="3">3</option>
@@ -39,11 +43,17 @@
                 <option value ="1">1</option>
             </select>
 
+            <p>Scale: 5 - I could play this all day, </p>
+            <p>1 - I can survive one round</p>
+
             <p>&nbsp;</p>
 
-            <p><b>Please write your comments here</b></p>
-            <p>Maximum length: 200 characters</p>
+        <p><b>Please write your comments here</b></p>
             <textarea name="comments" rows = "5" cols ="40" maxlength ="200"></textarea>
+            <p>Maximum length: 200 characters</p>
+
+            <p>&nbsp;</p>
+
             <p><input id="submit_feedback" type="submit" value="Send"></p>
             <input type ="hidden" name="gamename" value={{session.gameinfo.gamename}}></input>
             <input type ="hidden" name="session_id" value={{session.csrf_token }}></input>
@@ -52,11 +62,14 @@
             <p>&nbsp;</p>
             <p>
                 <div id="output" style="display: none;">
-                    Please press Send to submit your feedback.
                 </div>
             </p>
 
     </form>
+
+    </div>
+</div>
+
 
     <hr>
 
