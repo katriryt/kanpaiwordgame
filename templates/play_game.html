@@ -18,7 +18,6 @@ $(function(){
                 data: JSON.stringify({'wasright': 1, 'session_id': '{{ session.csrf_token }}' }),
                 contentType: 'application/json'
             });
-//            console.log('right')
         } else {
             $('#output').html("You picked the wrong answer. The right answer is: {{ series_cards[session['gameinfo']['roundnumber']][4] }}");
 
@@ -28,7 +27,6 @@ $(function(){
                 data: JSON.stringify({'wasright': 0, 'session_id': '{{ session.csrf_token }}'}),
                 contentType: 'application/json'
             });
-//            console.log('wrong')
         }
         document.getElementById("1").disabled = true;
         document.getElementById("2").disabled = true;
@@ -40,12 +38,9 @@ $(function(){
 
         var nowroundnumber = parseInt("{{ session['gameinfo']['roundnumber'] }}");
         var nextroundnumber = nowroundnumber+1;
-//        console.log(nextroundnumber);
         var maxround = parseInt("{{ session['gameinfo']['maxrounds'] }}");
-//        console.log(maxround);
         if (nextroundnumber < maxround) {
             $('#nextround').show();
-//            console.log('Here we are');
         } else {
             $('#gameover').show();
         };
@@ -102,10 +97,6 @@ $(function(){
                 <b><a href="/play_game">Play the next round with {{ session["gameinfo"]["gamename"] }}</a></b>
             </div>
         </p>
-
-        <p>{% print(session['gameinfo']) %}</p>
-        <p>Check: {{ series_cards[session['gameinfo']['roundnumber']] }}</p>
-        <p>Right answer: {{ series_cards[session['gameinfo']['roundnumber']][4] }}</p>
 
     <p> 
         <div id="gameover" style="display: none;">

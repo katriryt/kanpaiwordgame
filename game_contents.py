@@ -1,37 +1,23 @@
-from db import db
 import random
 from flask import session
-
-#print("game_contents sivulla")
+from db import db
 
 def get_game_names():
-    # This method gets the names for the different games from the database
     sql = "SELECT class FROM words GROUP BY class"
     game_names_raw = db.session.execute(sql).fetchall()
     game_names = []
-    for name in game_names_raw: 
+    for name in game_names_raw:
         game_names.append(name[0])
     game_names.sort()
     return game_names
 
 def one_series_get_all(wanted_class):
-    # This method returns raw data for one series from the database for the requested class of game (parameter)
-#    print("getting one series")
-#    print(wanted_class)
-
-#    new_class = wanted_class
-#    sql = "SELECT * FROM words WHERE class='Adjectives'" # this works
-    sql = "SELECT * FROM words WHERE class=:class" # works: gets the words for the wanted class
+    sql = "SELECT * FROM words WHERE class=:class"
     one_series_data_raw = db.session.execute(sql, {"class":wanted_class}).fetchall()
     return one_series_data_raw
 
 def one_series_game_cards():
-    # This method returns all the information needed for full one_series_full_game, for the requested class of game (parameter)
-#    given_wanted_class = 'Greetings' # works
-    temp = session['gameinfo'] # works
-#    print("testing moving game name")
-#    print(temp)
-#    print(temp['gamename'])
+    temp = session['gameinfo']
     given_wanted_class = temp['gamename']
     one_series_data_raw = one_series_get_all(given_wanted_class)
 
@@ -39,7 +25,7 @@ def one_series_game_cards():
     for word_row in one_series_data_raw:
         all_english_options.append(word_row.english)
 
-    one_series_full_game = [] # contents are lists: [kanji, hiragana, roomaji, correct_English_version, [4 alternative english versions]]
+    one_series_full_game = []
     for word_row in one_series_data_raw:
         input_to_one_game = []
         input_to_one_game.append(word_row.id)
@@ -50,7 +36,7 @@ def one_series_game_cards():
 
         answer_alternatives = []
         answer_alternatives = random.sample(set(all_english_options), 4)
-        if word_row.english not in answer_alternatives: 
+        if word_row.english not in answer_alternatives:
             answer_alternatives.pop()
             answer_alternatives.append(word_row.english)
 
@@ -58,6 +44,5 @@ def one_series_game_cards():
 
         input_to_one_game.append(answer_alternatives)
         one_series_full_game.append(input_to_one_game)
-       
-#    print(one_series_full_game)
+
     return one_series_full_game
