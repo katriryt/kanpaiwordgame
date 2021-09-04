@@ -1,6 +1,8 @@
 from app import app
 from flask import render_template, request, redirect, session, make_response
 import game_contents, users, game, data_statistics
+from datetime import datetime
+from pytz import timezone
 
 @app.route("/")
 def index(): 
@@ -75,9 +77,14 @@ def processinput():
     session.modified = True
 #    print(session)
 
-    if session['gameinfo']['roundnumber'] >= session['gameinfo']['maxrounds']-1:
-#        print("rounds are done, time to save the results")
-        game.save_game_results(session['gameinfo']['gamename'], session['user_id'], session['csrf_token'], session['gameinfo']['words_total'], session['gameinfo']['correctanswers'])
+    if session['gameinfo']['roundnumber'] >= session['gameinfo']['maxrounds']: # oli maxrounds -1
+        print("rounds are done, time to save the results")
+        print(session)
+        utc = timezone('utc')
+        session['gameinfo']['game_end_time'] = datetime.now(utc)
+        session.modified = True
+        print(session)
+        game.save_game_results(session['gameinfo']['gamename'], session['user_id'], session['csrf_token'], session['gameinfo']['words_total'], session['gameinfo']['correctanswers'], session['gameinfo']['game_start_time'], session['gameinfo']['game_end_time'])
 #        game.save_game_results(game_class, player_id, session_id, total_words, words_correct)
 
 #    print(session)
@@ -199,7 +206,13 @@ def statistics():
 #    return render_template("statistics.html", game_names=game_names, user_stats=user_stats)
     best_game_stats = data_statistics.best_game_statistics()
 #    print(best_game_stats)
-    return render_template("statistics.html", user_stats=user_stats, best_game_stats=best_game_stats)
+    heaviest_users = data_statistics.heaviest_users() # toimii ok
+#    heaviest_users = [['testi1', 'testi2', 'teststwterte', 'aa', '1'], [49, 21, 50, 190, 1]]
+#    heaviest_users = [[], []]
+#    print(heaviest_users)
+    most_frequent_players = data_statistics.most_frequent_players()
+#    print(most_frequent_players)
+    return render_template("statistics.html", user_stats=user_stats, best_game_stats=best_game_stats, heaviest_users=heaviest_users, most_frequent_players=most_frequent_players)
 
 @app.route("/see_feedback")
 def see_feedback():

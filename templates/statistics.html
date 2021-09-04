@@ -1,31 +1,37 @@
 {% extends "layout.html" %}
 {% block content %}
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+
 <h2>Statistics</h2>
 <p>See your statistics vs. other players here!</p>
 <br>
 
 <p><b>Statistics for {{ session["user_name"] }}'s games</b></p>
 
-<table name="mystats" class="center">
+<table>
     <tr>
         <th>Game name</th>
         <th>Words to learn</th>
-        <th>Highest correct </th>
-        <th>Highest correct </th>
+        <th>Highest correct</th>
+        <th>Highest correct</th>
+        <th>Best time</th>
         <th>Games played</th>
+        <th>Total time played</th>
         <th>Average correct</th>
         <th>Average correct</th>
     </tr>
 
     <tr>
         <td> </td>
-        <td>Number</td>
-        <td>Number</td>
-        <td>Percent</td>
-        <td>Number</td>
-        <td>Number</td>
-        <td>Percent</td>
+        <td><i>Number</i></td>
+        <td><i>Number</i></td>
+        <td><i>Percent</i></td>
+        <td><i>Seconds</i></td>
+        <td><i>Number</i></td>
+        <td><i>Minutes</i></td>
+        <td><i>Number</i></td>
+        <td><i>Percent</i></td>
     </tr>
     
     <tr>
@@ -42,23 +48,27 @@
 
 <p><b>Statistics for best games played </b></p>
 
-<table name="beststats" class="center">
+<table>
     <tr>
         <th>Game name</th>
         <th>Times played</th>
+        <th>Total time played</th>
         <th>Words to learn</th>
         <th>Highest correct </th>
         <th>Highest correct </th>
         <th>Best player</th>
+        <th>Best time</th>
     </tr>
 
     <tr>
         <td> </td>
-        <td>Number</td>
-        <td>Number</td>
-        <td>Number</td>
-        <td>Percent</td>
-        <td> </td>
+        <td><i>Number</i></td>
+        <td><i>Minutes</i></td>
+        <td><i>Number</i></td>
+        <td><i>Number</i></td>
+        <td><i>Percent</i></td>
+        <td><i>Name</i></td>
+        <td><i>Seconds</i></td>
     </tr>
     
     {% for item in best_game_stats %}
@@ -70,6 +80,86 @@
     {% endfor %}
 
 </table>
+
+<p><b>Statistics for heaviest users</b></p>
+
+<div class="chartholder">
+    <div class="chartholderchild">
+        <p><b>Top players: Time spent on the Kanpai wordgame</b></p>
+        <p><i>Total time, minutes</i></p>
+        <div class="chartsize">
+            <canvas id="playersbytime"></canvas>
+        </div>
+    </div>
+
+    <script>
+        var player_names = {{heaviest_users[0]|safe}};
+        var usage = {{heaviest_users[1]}};
+        var ctxA = document.getElementById('playersbytime').getContext('2d');
+        var ChartA = new Chart(ctxA, {
+            type: 'bar',
+            data: {
+                labels: player_names,
+                datasets: [{
+                    label: 'Minutes spent on application',
+                    data: usage,
+                    backgroundColor: 'rgb(207, 161, 200)'
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    },
+                }
+            }
+        });
+        </script>
+
+    <div class="chartholderchild">
+        <p><b>Top players: Number of games played</b></p>
+        <p><i>Total number, #</i></p>
+        <div class="chartsize">
+            <canvas id="playersbyfrequency"></canvas>
+        </div>
+    </div>
+
+<script>
+        var player_names_2 = {{most_frequent_players[0]|safe}};
+        var frequency = {{most_frequent_players[1]}};
+        var ctxB = document.getElementById('playersbyfrequency').getContext('2d');
+        var ChartB = new Chart(ctxB, {
+            type: 'bar',
+            data: {
+                labels: player_names_2,
+                datasets: [{
+                    label: 'Number of games played',
+                    data: frequency,
+                    backgroundColor: 'rgb(207, 161, 200)'
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    },
+                }
+            }
+        });
+        </script>
+</div>
 
 <hr>
 

@@ -31,3 +31,11 @@ CREATE TABLE feedback(
     points INTEGER, 
     comments TEXT
 );
+
+CREATE TABLE sessions(
+    id SERIAL PRIMARY KEY, 
+    session_ID TEXT, 
+    player_id INTEGER REFERENCES users (id),
+    start_time TIMESTAMPTZ, 
+    end_time TIMESTAMPTZ
+);
