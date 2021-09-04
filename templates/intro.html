@@ -2,12 +2,11 @@
 {% block content %}
 
     <script>
-        var bgImageArray = ["pic1.JPG", "pic2.JPG", "pic3.JPG", "pic4.JPG", "pic5.JPG"],
+        var bgImageArray = ["pic1.jpg", "pic2.jpg", "pic3.jpg", "pic4.jpg", "pic5.jpg"],
         base = "../static/",
         secs = 3;
         bgImageArray.forEach(function(img){
             new Image().src = base + img; 
-            // caches images, avoiding white flash between background replacements
         });
     
         function backgroundSequence() {
