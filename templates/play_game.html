@@ -71,7 +71,7 @@ $(function(){
 
     <p><a href="/play_game?restart=yes">Start a new game with {{ session["gameinfo"]["gamename"] }}</a></p>
 
-    <p><b>Word in Japanese </b></p>
+    <h3>Word in Japanese </h3>
 
         <p>
             <div class ="alternatives">{{ series_cards[session['gameinfo']['roundnumber']][1] }}</div>
@@ -84,7 +84,7 @@ $(function(){
             <div class ="alternatives_description">roomaji</div>
         </p>
 
-        <p><b>Select the correct meaning</b></p>
+        <h3>Select the correct meaning</h3>
         <p>
 
             {% for item in series_cards[session['gameinfo']['roundnumber']][5] %}
@@ -103,7 +103,6 @@ $(function(){
             </div>
         </p>
 
-        <br />
         <p>{% print(session['gameinfo']) %}</p>
         <p>Check: {{ series_cards[session['gameinfo']['roundnumber']] }}</p>
         <p>Right answer: {{ series_cards[session['gameinfo']['roundnumber']][4] }}</p>

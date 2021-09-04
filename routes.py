@@ -78,12 +78,12 @@ def processinput():
 #    print(session)
 
     if session['gameinfo']['roundnumber'] >= session['gameinfo']['maxrounds']: # oli maxrounds -1
-        print("rounds are done, time to save the results")
-        print(session)
+#        print("rounds are done, time to save the results")
+#        print(session)
         utc = timezone('utc')
         session['gameinfo']['game_end_time'] = datetime.now(utc)
         session.modified = True
-        print(session)
+#        print(session)
         game.save_game_results(session['gameinfo']['gamename'], session['user_id'], session['csrf_token'], session['gameinfo']['words_total'], session['gameinfo']['correctanswers'], session['gameinfo']['game_start_time'], session['gameinfo']['game_end_time'])
 #        game.save_game_results(game_class, player_id, session_id, total_words, words_correct)
 
@@ -159,7 +159,7 @@ def signin():
             return render_template("error.html", message="Password must be 2-5 characters long, please try again")
 
         if users.signin(username, password):
-            print("sign-in ok")
+#            print("sign-in ok")
             return redirect("/play_game")
 
         else:

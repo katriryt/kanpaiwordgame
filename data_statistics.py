@@ -271,7 +271,7 @@ def latest_five_feedback_by_game():
     return latest_five_by_class
 
 def get_all_feedback():
-    print("getting all feedback")
+#    print("getting all feedback")
 #    sql = """SELECT * from feedback"""
     sql = """SELECT Z.id as feedback_id, 
                     Z.game_class as game_name, 
