@@ -271,8 +271,31 @@ def latest_five_feedback_by_game():
     return latest_five_by_class
 
 def get_all_feedback():
-#    print("getting all feedback")
-    sql = """SELECT * from feedback"""
+    print("getting all feedback")
+#    sql = """SELECT * from feedback"""
+    sql = """SELECT Z.id as feedback_id, 
+                    Z.game_class as game_name, 
+                    Z.user_name as player_name,
+                    Z.feedback_date as feedback_date,
+                    Z.points as stars,
+                    Z.hidden as hidden,
+                    Z.comments,
+                    Z.response
+            FROM (
+                SELECT * 
+                FROM feedback as C
+                LEFT JOIN (
+                    SELECT A.session_id, A.player_id, A.start_time, start_time:: timestamp ::date as feedback_date, B.user_id, B.user_name
+                    FROM sessions as A
+                    LEFT JOIN (
+                        SELECT id as user_id, 
+                                name as user_name
+                        FROM users
+                    ) as B ON A.player_id = B.user_id
+                ) as D on C.session_id = D.session_id
+            ) as Z
+            ORDER BY Z.id DESC
+    """
     all_feedback = db.session.execute(sql).fetchall()
     return all_feedback
 

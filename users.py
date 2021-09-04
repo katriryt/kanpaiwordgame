@@ -55,7 +55,7 @@ def signin(given_name, given_password):
 #        print(session)
 #        print("signin ok")
 #        print("tehdään merkintä session alkamisesta")
-#        save_session_start()
+        save_session_start()
 #        print("session saved")
         return True
     else:
@@ -94,7 +94,7 @@ def save_session_end():
         db.session.commit()
 #        print("end time updated ok")
     except Exception as e:
-        print("end time update NOK")
+#        print("end time update NOK")
         return False
     return True    
 

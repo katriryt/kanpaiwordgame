@@ -31,9 +31,7 @@
 
     <form id="feedback_form" action="/feedback" method="post" onsubmit="return DisableButton(this)">
 
-        <p>&nbsp;</p>
-
-        <p><b>Please rate the game with stars</b></p>
+        <h3>Please rate the game with stars</h3>
 
             <select name="stars">
                 <option value ="5">5</option>
@@ -46,20 +44,15 @@
             <p>Scale: 5 - I could play this all day, </p>
             <p>1 - I can survive one round</p>
 
-            <p>&nbsp;</p>
-
-        <p><b>Please write your comments here</b></p>
+        <h3>Please write your comments here</h3>
             <textarea name="comments" rows = "5" cols ="40" maxlength ="200"></textarea>
             <p>Maximum length: 200 characters</p>
-
-            <p>&nbsp;</p>
 
             <p><input id="submit_feedback" type="submit" value="Send"></p>
             <input type ="hidden" name="gamename" value={{session.gameinfo.gamename}}></input>
             <input type ="hidden" name="session_id" value={{session.csrf_token }}></input>
             <input type ="hidden" name="player_id" value={{session.user_id}}></input>
 
-            <p>&nbsp;</p>
             <p>
                 <div id="output" style="display: none;">
                 </div>
@@ -70,4 +63,4 @@
     </div>
 </div>
 
-    {% endblock %}
+{% endblock %}

@@ -2,15 +2,14 @@
 {% block content %}
 
 <h2>Overview of feedbacks</h2>
-<p>See feedback for the games!</p>
-<br />
+<p>See the latest feedback for each game!</p>
 
-<table name="feedback_given" class="center">
+<table name="feedback_given" style="width:100%">
     <tr>
-        <th>Game name</th>
-        <th>Stars</th>
-        <th>Comments</th>
-        <th>Admin response</th>
+        <th style="width:10%">Game name</th>
+        <th style="width:10%">Stars</th>
+        <th style="width:40%">Comments</th>
+        <th style="width:40%">Admin response</th>
     </tr>
 
         {% for item in latest_five_feedbacks %}
@@ -22,6 +21,5 @@
         {% endfor %}
 
 </table> 
-<br />
 
 {% endblock %}
