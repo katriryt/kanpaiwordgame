@@ -122,6 +122,7 @@ table {
     position:relative;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 20px;
     }
 
 #animated-bg:before {
@@ -150,4 +151,64 @@ table {
 .chartsize{
     width:500px; 
     height:275px;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: #f2f2f2;
+}
+
+.navbar a {
+  float: right;
+  font-size: 16px;
+  color: rgb(32, 17, 30);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: right;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: rgb(32, 17, 30);
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: #af4c6d;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: rgb(207, 161, 200);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
 }
